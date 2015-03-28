@@ -25,8 +25,9 @@ public class SampleListener extends Listener implements JMC {
 	
 	public void onInit(Controller controller) {
         System.out.println("Initialized");
-        checkNote((float) 0.5,8.0);
-
+//        checkNote((float) 0.5,8.0);
+        testNote();
+        
     }
 
     public void onConnect(Controller controller) {
@@ -87,6 +88,14 @@ public class SampleListener extends Listener implements JMC {
     }
     
     
+    private void testNote()
+    {
+    	for (float i = 0; i < 8.0; i +=1.0)
+    	{
+    		checkNote (i, 8.0);
+    	}
+    }
+    
     /**
      * checkNote checks where the "x" value is in terms of the interaction Box
      * @x is the NORMALIZED x position of the finger [0,1]
@@ -99,62 +108,29 @@ public class SampleListener extends Listener implements JMC {
     	
     	System.out.println("div: "+div);
     	
-    	/*if (0 < x && x < div)
-    	{
-    		return 0;
-    	}
-    	else if ( div < x && x < 2*div)
-    	{
-    		return 1;
-    	}
-    	else if (2*div < x && x < 3*div)
-    	{
-    		return 2;
-    	}
-    	else if (3*div < x && x < 4*div)
-    	{
-    		return 3;
-    	}
-    	else if (4*div < x && x < 5*div)
-    	{
-    		return 4;
-    	}
-    	else if (5*div < x && x < 6*div)
-    	{
-    		return 5;
-    	}
-    	else if (6*div < x && x < 7*div)
-    	{
-    		return 6;
-    	}
-    	else
-    	{
-    		return 7;
-    	}*/
-    	
-    	
     	for (double i = 0.0; i < numNotes; i +=1.0)
     	{
-    		//System.out.print("DEBUG INFO | ");
-			//System.out.print("i: "+ i+ " | ");
-			//System.out.print("x:" + x+ " | ");
-			//System.out.println("i*div: "+ i*div);
+    		System.out.print("DEBUG INFO | ");
+			System.out.print("i: "+ i+ " | ");
+			System.out.print("x:" + x+ " | ");
+			System.out.println("i*div: "+ i*div);
     		
     		try {
     			
     			Synthesizer synth = MidiSystem.getSynthesizer();
     			synth.open();
     			MidiChannel[] channels = synth.getChannels();
-    			int volume = 80;
-    			int duration = 100;
+    			int volume = 50;
+    			int duration = 200;
     			
-    			if ( i*div < x && x < (i+1)*div)
+    			if ( i*div <= x && x <= (i+1)*div)
     			{
-    				System.out.println("Workking");
+    				System.out.println("Playing: ");
     				channels[0].noteOn(cScale[(int)i], volume);
     				Thread.sleep(duration);
     				channels[0].noteOff(cScale[(int)i]);
     				synth.close();
+    				
     				return (int)i;	// Call function here
     				
     			}
