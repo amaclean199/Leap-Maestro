@@ -1,5 +1,6 @@
 import java.io.IOException;
 import com.leapmotion.leap.*;
+import java.util.*;
 
 class SampleListener extends Listener {
 	public void onInit(Controller controller) {
@@ -26,6 +27,7 @@ class SampleListener extends Listener {
     public void onFrame(Controller controller) {
     	Frame frame = controller.frame();
     	GestureList gestures = frame.gestures();
+        InteractionBox i_box = frame.interactionBox();
 
     	/*System.out.println("Frame id: " + frame.id()
                          + ", timestamp: " + frame.timestamp()
@@ -39,6 +41,12 @@ class SampleListener extends Listener {
         	String handType = hand.isLeft() ? "Left hand" : "Right hand";
         	System.out.println("  " + handType + ", id: " + hand.id()
                              + ", palm position: " + hand.palmPosition() + "frame width: " + frame.interactionBox().width());
+            Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
+
+            Float xPos = (Float)normalizedHandPosition.firstElement();
+            int note = checkNote(xPos);
+
+            System.out.println("Note: " + note);
         }
 
     	// Get tools
@@ -59,7 +67,7 @@ class SampleListener extends Listener {
      * @x is the NORMALIZED x position of the finger [0,1]
      * @frameWidth is the default width of the frame's interaction box
      */
-    private int checkNote(int x, int frameWidth)
+    private int checkNote(Float x)
     {
     	int div = 1/8;	// Represents the space allocated to each "note"
     	
