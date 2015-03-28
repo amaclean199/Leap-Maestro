@@ -1,10 +1,9 @@
-package src.main.java.ca.uwo.csd.hackwestern;
+package ca.uwo.csd.hackwestern;
 
 import java.io.IOException;
-
 import com.leapmotion.leap.*;
 import com.leapmotion.leap.Vector;
-
+import ca.uwo.csd.hackwestern.SampleListener;
 import java.util.*;
 
 public class Main {

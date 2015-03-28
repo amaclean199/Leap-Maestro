@@ -1,9 +1,7 @@
-package src.main.java.ca.uwo.csd.hackwestern;
+package ca.uwo.csd.hackwestern;
 
 import java.io.File;
-
 import jm.JMC;
-
 import com.leapmotion.leap.Controller;
 import com.leapmotion.leap.Frame;
 import com.leapmotion.leap.Gesture;
@@ -16,8 +14,6 @@ import com.leapmotion.leap.Vector;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Synthesizer;
 import javax.sound.midi.MidiChannel;
-
-
 
 public class SampleListener extends Listener implements JMC {
 	
