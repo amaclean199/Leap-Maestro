@@ -1,3 +1,5 @@
+//package src.main.java.ca.uwo.csd.hackwestern;
+
 import java.io.IOException;
 
 import com.leapmotion.leap.*;
@@ -46,10 +48,11 @@ class SampleListener extends Listener {
                              + ", palm position: " + hand.palmPosition() + "frame width: " + frame.interactionBox().width());
             Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
 
-//            Float xPos = (Float)(normalizedHandPosition).firstElement();
-            float note = normalizedHandPosition.getX();
+            float normalizedX = normalizedHandPosition.getX();
 
-            System.out.println("Note: " + note);
+            int finalX = checkNote(normalizedX);
+            
+            System.out.println("Note: " + normalizedX + "finalX: " + finalX);
         }
 
     	// Get tools
@@ -72,8 +75,9 @@ class SampleListener extends Listener {
      */
     private int checkNote(Float x)
     {
-    	int div = 1/8;	// Represents the space allocated to each "note"
+    	double div = 1.0/8.0;	// Represents the space allocated to each "note"
     	
+    	System.out.println("div: "+div);
     	
     	if (0 < x && x < div)
     	{
@@ -110,7 +114,7 @@ class SampleListener extends Listener {
     }
 }
 
-public class main {
+public class App {
 	public static void main(String[] args){
 		// Create a sample listener and controller
         SampleListener listener = new SampleListener();
