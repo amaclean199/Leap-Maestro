@@ -50,7 +50,7 @@ class SampleListener extends Listener {
 
             float normalizedX = normalizedHandPosition.getX();
 
-            int finalX = checkNote(normalizedX);
+            int finalX = checkNote(normalizedX, 8.0);
             
             System.out.println("Note: " + normalizedX + "finalX: " + finalX);
         }
@@ -72,14 +72,15 @@ class SampleListener extends Listener {
      * checkNote checks where the "x" value is in terms of the interaction Box
      * @x is the NORMALIZED x position of the finger [0,1]
      * @frameWidth is the default width of the frame's interaction box
+     * @numNotes is the number of bars to be generated
      */
-    private int checkNote(Float x)
+    private int checkNote(Float x, Double numNotes)
     {
-    	double div = 1.0/8.0;	// Represents the space allocated to each "note"
+    	double div = 1.0/numNotes;	// Represents the space allocated to each "note"
     	
     	System.out.println("div: "+div);
     	
-    	if (0 < x && x < div)
+    	/*if (0 < x && x < div)
     	{
     		return 0;
     	}
@@ -110,7 +111,17 @@ class SampleListener extends Listener {
     	else
     	{
     		return 7;
+    	}*/
+    	
+    	for (double i = 0.0; i < numNotes; i ++)
+    	{
+    		if ( i < x && x < div)
+    		{
+    			return (int)i;
+    		}
     	}
+    	return 0;	// Return 0 default to silence warning
+    	
     }
 }
 
