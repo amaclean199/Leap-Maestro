@@ -17,8 +17,6 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Synthesizer;
 import javax.sound.midi.MidiChannel;
 
-
-
 public class SampleListener extends Listener implements JMC {
 	
 	private int[] cScale= {60, 62, 64, 65, 67, 69, 71, 72};
@@ -26,8 +24,7 @@ public class SampleListener extends Listener implements JMC {
 	public void onInit(Controller controller) {
         System.out.println("Initialized");
 //        checkNote((float) 0.5,8.0);
-        testNote();
-        
+        //testNote();
     }
 
     public void onConnect(Controller controller) {
@@ -69,9 +66,11 @@ public class SampleListener extends Listener implements JMC {
             Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
 
             float normalizedX = normalizedHandPosition.getX();
-
+            
+            //System.out.println(normalizedX);
             int finalX = checkNote(normalizedX, 8.0);
             
+   
             System.out.println("Note: " + normalizedX + "finalX: " + finalX);
         }
 
@@ -121,14 +120,14 @@ public class SampleListener extends Listener implements JMC {
     			synth.open();
     			MidiChannel[] channels = synth.getChannels();
     			int volume = 50;
-    			int duration = 200;
+    			int duration = 1000;
     			
     			if ( i*div <= x && x <= (i+1)*div)
     			{
     				System.out.println("Playing: ");
-    				channels[0].noteOn(cScale[(int)i], volume);
+    				channels[5].noteOn(cScale[(int)i], volume);
     				Thread.sleep(duration);
-    				channels[0].noteOff(cScale[(int)i]);
+    				channels[5].noteOff(cScale[(int)i]);
     				synth.close();
     				
     				return (int)i;	// Call function here
