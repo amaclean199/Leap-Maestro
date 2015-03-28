@@ -43,7 +43,7 @@
     <configuration>
      <archive>
       <manifest>
-       <mainClass>ca.uwo.csd.hackwestern.Main</mainClass>
+       <mainClass>src.main.java.ca.uwo.csd.hackwestern.Main</mainClass>
       </manifest>
      </archive>
     </configuration>
@@ -58,7 +58,7 @@
      </descriptorRefs>
      <archive>
       <manifest>
-       <mainClass>ca.uwo.csd.hackwestern.Main</mainClass>
+       <mainClass>src.main.java.ca.uwo.csd.hackwestern.Main</mainClass>
       </manifest>
      </archive>
     </configuration>

@@ -1,10 +1,9 @@
-package ca.uwo.csd.hackwestern;
+package src.main.java.ca.uwo.csd.hackwestern;
+
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Synthesizer;
-
 import com.leapmotion.leap.*;
-
 
 public class ProcessFrame {
 	
