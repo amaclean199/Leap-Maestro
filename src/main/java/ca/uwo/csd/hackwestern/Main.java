@@ -9,12 +9,36 @@ import java.util.*;
 
 public class Main {
 	public static void main(String[] args){
-		// Create a sample listener and controller
-        SampleListener listener = new SampleListener();
         Controller controller = new Controller();
-
-        // Have the sample listener receive events from the controller
-        controller.addListener(listener);
+        ProcessFrame processor = new ProcessFrame();
+        
+        
+        
+        while (true)	// Polls the controller for a frame
+        {
+        	Frame currentFrame = controller.frame();
+        	
+        	processor.process(currentFrame);
+//        	System.out.println("timer");
+        	
+        	
+        	
+        	try	// Constant framerate (10 frames per second)
+        	{
+        		Thread.sleep(300);
+        	}
+        	catch (java.lang.InterruptedException e)
+        	{
+        		e.printStackTrace();
+        	}
+        	
+        	
+        	if (!controller.isConnected())	// Disconnect since the controller is disconnected
+        	{
+        		break;
+        	}
+        }
+        
         
         // Keep this process running until Enter is pressed
         System.out.println("Press Enter to quit...");
@@ -25,6 +49,6 @@ public class Main {
         }
 
         // Remove the sample listener when done
-        controller.removeListener(listener);
+//        controller.removeListener(listener);
 	}
 }
