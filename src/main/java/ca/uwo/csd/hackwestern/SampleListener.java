@@ -23,8 +23,6 @@ public class SampleListener extends Listener implements JMC {
 	
 	public void onInit(Controller controller) {
         System.out.println("Initialized");
-//        checkNote((float) 0.5,8.0);
-        //testNote();
     }
 
     public void onConnect(Controller controller) {
@@ -36,6 +34,7 @@ public class SampleListener extends Listener implements JMC {
     }
 
     public void onDisconnect(Controller controller) {
+    	
         //Note: not dispatched when running in a debugger.
         System.out.println("Disconnected");
     }
@@ -45,54 +44,24 @@ public class SampleListener extends Listener implements JMC {
     }
 
     public void onFrame(Controller controller) {
+    	
     	Frame frame = controller.frame();
     	GestureList gestures = frame.gestures();
         InteractionBox i_box = frame.interactionBox();
 
-    	/*System.out.println("Frame id: " + frame.id()
-                         + ", timestamp: " + frame.timestamp()
-                         + ", hands: " + frame.hands().count()
-                         + ", fingers: " + frame.fingers().count()
-                         + ", tools: " + frame.tools().count()
-                         + ", gestures " + frame.gestures().count());*/
-
-        
-        
     	//Get hands
         for(Hand hand : frame.hands()) {
-        	String handType = hand.isLeft() ? "Left hand" : "Right hand";
-        	System.out.println("  " + handType + ", id: " + hand.id()
-                             + ", palm position: " + hand.palmPosition() + "frame width: " + frame.interactionBox().width());
-            Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
-
+        	
+        	Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
             float normalizedX = normalizedHandPosition.getX();
-            
-            //System.out.println(normalizedX);
-            int finalX = checkNote(normalizedX, 8.0);
-            
-   
+            double finalX = checkNote(normalizedX, 8.0);
             System.out.println("Note: " + normalizedX + "finalX: " + finalX);
-        }
-
-    	// Get tools
-        for(Tool tool : frame.tools()) {
-            System.out.println("  Tool id: " + tool.id()
-                             + ", position: " + tool.tipPosition()
-                             + ", direction: " + tool.direction());
+            playNote((int)finalX);
         }
 
     	if (!frame.hands().isEmpty() || !gestures.isEmpty()) {
             System.out.println();
         }
-    }
-    
-    
-    private void testNote()
-    {
-    	for (float i = 0; i < 8.0; i +=1.0)
-    	{
-    		checkNote (i, 8.0);
-    	}
     }
     
     /**
@@ -101,45 +70,44 @@ public class SampleListener extends Listener implements JMC {
      * @frameWidth is the default width of the frame's interaction box
      * @numNotes is the number of bars to be generated
      */
-    private int checkNote(Float x, Double numNotes)
-    {
+    private double checkNote(Float x, Double numNotes) {
+    	
+    	double note = -1;
     	double div = 1.0/numNotes;	// Represents the space allocated to each "note"
     	
-    	System.out.println("div: "+div);
+    	System.out.println("div: " + div);
     	
-    	for (double i = 0.0; i < numNotes; i +=1.0)
-    	{
+    	for (double i = 0.0; i < numNotes; i +=1.0) {
     		System.out.print("DEBUG INFO | ");
 			System.out.print("i: "+ i+ " | ");
 			System.out.print("x:" + x+ " | ");
 			System.out.println("i*div: "+ i*div);
-    		
-    		try {
     			
-    			Synthesizer synth = MidiSystem.getSynthesizer();
-    			synth.open();
-    			MidiChannel[] channels = synth.getChannels();
-    			int volume = 50;
-    			int duration = 1000;
-    			
-    			if ( i*div <= x && x <= (i+1)*div)
-    			{
-    				System.out.println("Playing: ");
-    				channels[5].noteOn(cScale[(int)i], volume);
-    				Thread.sleep(duration);
-    				channels[5].noteOff(cScale[(int)i]);
-    				synth.close();
-    				
-    				return (int)i;	// Call function here
-    				
-    			}
-    		}
-    		catch (Exception e)
-    		{
-    			e.printStackTrace();
+    		if (i*div <= x && x <= (i+1)*div) {
+    			note = i;
+    			break;
     		}
     	}
-    	return 0;	// Return 0 default to silence warning*/
-    	
+    	return note;	// Return 0 default to silence warning*/
+    }
+    
+    private void playNote(int pitch){
+    	try {
+			
+			Synthesizer synth = MidiSystem.getSynthesizer();
+			synth.open();
+			MidiChannel[] channels = synth.getChannels();
+			int volume = 50;
+			int duration = 1000;
+			System.out.println("Playing: ");
+			channels[5].noteOn(cScale[pitch], volume);
+			Thread.sleep(duration);
+			channels[5].noteOff(cScale[pitch]);
+			synth.close();	
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
     }
 }
