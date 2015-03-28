@@ -1,13 +1,16 @@
 //package src.main.java.ca.uwo.csd.hackwestern;
 
-import java.io.IOException;
-
-import com.leapmotion.leap.*;
+import com.leapmotion.leap.Controller;
+import com.leapmotion.leap.Frame;
+import com.leapmotion.leap.Gesture;
+import com.leapmotion.leap.GestureList;
+import com.leapmotion.leap.Hand;
+import com.leapmotion.leap.InteractionBox;
+import com.leapmotion.leap.Listener;
+import com.leapmotion.leap.Tool;
 import com.leapmotion.leap.Vector;
 
-import java.util.*;
-
-class SampleListener extends Listener {
+public class SampleListener extends Listener {
 	public void onInit(Controller controller) {
         System.out.println("Initialized");
     }
@@ -123,26 +126,4 @@ class SampleListener extends Listener {
     	return 0;	// Return 0 default to silence warning
     	
     }
-}
-
-public class main {
-	public static void main(String[] args){
-		// Create a sample listener and controller
-        SampleListener listener = new SampleListener();
-        Controller controller = new Controller();
-
-        // Have the sample listener receive events from the controller
-        controller.addListener(listener);
-        
-        // Keep this process running until Enter is pressed
-        System.out.println("Press Enter to quit...");
-        try {
-            System.in.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // Remove the sample listener when done
-        controller.removeListener(listener);
-	}
 }

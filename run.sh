@@ -4,4 +4,4 @@ mvn install:install-file -Dfile=src/main/resources/jar/LeapJava.jar -DgroupId=co
 mvn clean
 mvn compile
 mvn package
-java -jar target/leap.hackwestern-1.0-SNAPSHOT.jar
+java -jar leap.hackwestern-1.0-SNAPSHOT-jar-with-dependencies.jar
