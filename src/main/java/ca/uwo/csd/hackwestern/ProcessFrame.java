@@ -82,11 +82,6 @@ public class ProcessFrame extends JApplet{
     	System.out.println("div: " + div);
     	
     	for (double i = 0.0; i < numNotes; i +=1.0) {
-//    		System.out.print("DEBUG INFO | ");
-//			System.out.print("i: "+ i+ " | ");
-//			System.out.print("x:" + x+ " | ");
-//			System.out.println("i*div: "+ i*div);
-    			
     		if (i*div <= x && x <= (i+1)*div) {
     			note = i;
     			break;
@@ -102,5 +97,10 @@ public class ProcessFrame extends JApplet{
 	public void modifyPitch(double pitch){
 		sawFader.setFrequency(cScale[(int)pitch]);
     	System.out.println("Playing?");
-    }
+//    	sawFader.update(g);
+//    	sawFader.update(sawFader.getGraphics());
+//    	sawFader.
+    	sawFader.updatePosition();
+    	
+	}
 }

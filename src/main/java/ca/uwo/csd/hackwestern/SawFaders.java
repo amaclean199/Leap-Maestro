@@ -1,5 +1,6 @@
 //package src.main.java.ca.uwo.csd.hackwestern;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 
 import javax.swing.JApplet;
@@ -30,8 +31,10 @@ public class SawFaders extends JApplet
 	private UnitOscillator osc;
 	private LinearRamp lag;
 	private LineOut lineOut;
-
-
+	private double customFrq;
+	private PortControllerFactory pCF;
+	private Component x;
+	
 	public void init()
 	{
 		synth = JSyn.createSynthesizer();
@@ -59,11 +62,34 @@ public class SawFaders extends JApplet
 		knobPanel.add( knob );
 		add( knobPanel );
 
-		osc.frequency.setup( 50.0, 300.0, 10000.0 );
-		add( PortControllerFactory.createExponentialPortSlider( osc.frequency ) );
+		x = pCF.createExponentialPortSlider( osc.frequency );
+		
+		osc.frequency.setup( 50.0, 300.0, 1000.0 );
+		add( x );
+		
 		validate();
 	}
-
+	
+	public double getFrq()
+	{
+		return customFrq;
+	}
+	
+	public void updatePosition()
+	{
+		remove (x);
+		
+//		remove(PortControllerFactory.createExponentialPortSlider( osc.frequency ));
+		osc.frequency.setup(50.0, getFrq(), 1000.0);
+		x = pCF.createExponentialPortSlider( osc.frequency );
+		add( x );
+		
+		
+		
+		validate();
+//		repaint();
+	}
+	
 	public void start()
 	{
 		// Start synthesizer using default stereo output at 44100 Hz.
@@ -80,5 +106,6 @@ public class SawFaders extends JApplet
 	
 	public void setFrequency(double freq) {
 		osc.frequency.set(freq);
+		customFrq = freq;
 	}
 }

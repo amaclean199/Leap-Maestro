@@ -13,7 +13,6 @@ import java.util.*;
 public class Main {
 	
 	public static void main(String[] args){
-
 		SawFaders applet = new SawFaders();
 		JAppletFrame frame = new JAppletFrame( "SawFaders", applet );
 		frame.setSize( 440, 200 );
@@ -30,12 +29,11 @@ public class Main {
         	Frame currentFrame = controller.frame();
         	Frame previousFrame = controller.frame(1);
         	processor.process(currentFrame,previousFrame);
-//        	System.out.println("timer");
         	
         	
         	try	// Constant framerate (10 frames per second)
         	{
-        		Thread.sleep(300);
+        		Thread.sleep(1);
         	}
         	catch (java.lang.InterruptedException e)
         	{
