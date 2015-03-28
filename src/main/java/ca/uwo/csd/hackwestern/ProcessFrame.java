@@ -1,23 +1,20 @@
 package src.main.java.ca.uwo.csd.hackwestern;
-import javax.sound.midi.MidiChannel;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Synthesizer;
+
+import javax.swing.JApplet;
 
 import com.leapmotion.leap.*;
 
-
-public class ProcessFrame {
+public class ProcessFrame extends JApplet{
 	
 	// Attributes
-	private int[] cScale= {60, 62, 64, 65, 67, 69, 71, 72};
-
+	private double[] cScale= {261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25};
+	private SawFaders sawFader;
 	
 	// Default Constructor
-	public ProcessFrame()
+	public ProcessFrame(SawFaders sFade)
 	{
-		
+		sawFader = sFade;
 	}
-	
 	
 	/**
 	 * process will take a frame as a parameter and check it for events
@@ -26,7 +23,7 @@ public class ProcessFrame {
 	{
 		System.out.println("processing");
 
-		GestureList gestures = f.gestures();
+		//GestureList gestures = f.gestures();
         InteractionBox i_box = f.interactionBox();
 
     	//Get hands
@@ -35,15 +32,16 @@ public class ProcessFrame {
         	Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
             float normalizedX = normalizedHandPosition.getX();
             double finalX = checkNote(normalizedX, 8.0);
-            System.out.println("Note: " + normalizedX + "finalX: " + finalX);
-            playNote((int)finalX);
+            modifyPitch(finalX);
+            System.out.println("Note: " + normalizedX);
+            System.out.println("finalX: " + finalX);
+            
         }
 
-    	if (!f.hands().isEmpty() || !gestures.isEmpty()) {
+    	/*if (!f.hands().isEmpty() || !gestures.isEmpty()) {
             System.out.println();
-        }
+        }*/
 	}
-	
 	
     /**
      * checkNote checks where the "x" value is in terms of the interaction Box
@@ -51,7 +49,7 @@ public class ProcessFrame {
      * @frameWidth is the default width of the frame's interaction box
      * @numNotes is the number of bars to be generated
      */
-    private double checkNote(Float x, Double numNotes) {
+    public double checkNote(Float x, Double numNotes) {
     	
     	double note = -1;
     	double div = 1.0/numNotes;	// Represents the space allocated to each "note"
@@ -76,25 +74,8 @@ public class ProcessFrame {
 	 * playNote will take a note and play it based on the pitch provided
 	 * @pitch is the pitch of the scale
 	 * */
-	private void playNote(int pitch){
-    	try {
-			
-			Synthesizer synth = MidiSystem.getSynthesizer();
-			synth.open();
-			MidiChannel[] channels = synth.getChannels();
-			int volume = 50;
-			int duration = 300;
-			System.out.println("Playing: ");
-			channels[5].noteOn(cScale[pitch], volume);
-			Thread.sleep(duration);
-			channels[5].noteOff(cScale[pitch]);
-			synth.close();	
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+	public void modifyPitch(double pitch){
+		sawFader.setFrequency(cScale[(int)pitch]);
+    	System.out.println("Playing?");
     }
-	
-	
 }
