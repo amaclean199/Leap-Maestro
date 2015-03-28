@@ -52,6 +52,51 @@ class SampleListener extends Listener {
             System.out.println();
         }
     }
+    
+    
+    /**
+     * checkNote checks where the "x" value is in terms of the interaction Box
+     * @x is the NORMALIZED x position of the finger [0,1]
+     * @frameWidth is the default width of the frame's interaction box
+     */
+    private int checkNote(int x, int frameWidth)
+    {
+    	int div = 1/8;	// Represents the space allocated to each "note"
+    	
+    	
+    	if (0 < x && x < div)
+    	{
+    		return 0;
+    	}
+    	else if ( div < x && x < 2*div)
+    	{
+    		return 1;
+    	}
+    	else if (2*div < x && x < 3*div)
+    	{
+    		return 2;
+    	}
+    	else if (3*div < x && x < 4*div)
+    	{
+    		return 3;
+    	}
+    	else if (4*div < x && x < 5*div)
+    	{
+    		return 4;
+    	}
+    	else if (5*div < x && x < 6*div)
+    	{
+    		return 5;
+    	}
+    	else if (6*div < x && x < 7*div)
+    	{
+    		return 6;
+    	}
+    	else
+    	{
+    		return 7;
+    	}
+    }
 }
 
 public class main {
@@ -62,7 +107,7 @@ public class main {
 
         // Have the sample listener receive events from the controller
         controller.addListener(listener);
-
+        
         // Keep this process running until Enter is pressed
         System.out.println("Press Enter to quit...");
         try {
