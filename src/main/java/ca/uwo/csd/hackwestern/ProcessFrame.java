@@ -1,4 +1,4 @@
-package src.main.java.ca.uwo.csd.hackwestern;
+//package src.main.java.ca.uwo.csd.hackwestern;
 
 import javax.swing.JApplet;
 
@@ -40,27 +40,8 @@ public class ProcessFrame extends JApplet{
 			GestureList gestures = f.gestures();
 	        InteractionBox i_box = f.interactionBox();
 
-	    	//Get hands
-	        for(Hand hand : f.hands()) {
-	        	
-	        	Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
-	            float normalizedX = normalizedHandPosition.getX();
-	            double finalX = checkNote(normalizedX, 8.0);
-	            System.out.println("Note: " + normalizedX + "finalX: " + finalX);
-	            	            
-	            if (finalX == previous)
-	            {
-	            	return;
-	            }
-	            else
-	            {
-	            	playNote((int)finalX);
-	            	previous = finalX;
-	            }
-	            
-		//GestureList gestures = f.gestures();
-        InteractionBox i_box = f.interactionBox();
-
+	    	
+	       
     	//Get hands
         for(Hand hand : f.hands()) {
         	
@@ -71,11 +52,12 @@ public class ProcessFrame extends JApplet{
             System.out.println("Note: " + normalizedX);
             System.out.println("finalX: " + finalX);
             
-        }
-
+        	}
+		}
+	}
     	/*if (!f.hands().isEmpty() || !gestures.isEmpty()) {
             System.out.println();
-        }*/
+        }
 	        }
 
 	    	if (!f.hands().isEmpty() || !gestures.isEmpty()) {

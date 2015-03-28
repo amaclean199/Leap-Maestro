@@ -1,4 +1,4 @@
-package src.main.java.ca.uwo.csd.hackwestern;
+//package src.main.java.ca.uwo.csd.hackwestern;
 
 import java.awt.GridLayout;
 
@@ -31,15 +31,6 @@ public class SawFaders extends JApplet
 	private LinearRamp lag;
 	private LineOut lineOut;
 
-	/* Can be run as either an application or as an applet. */
-	public SawFaders()
-	{
-		SawFaders applet = new SawFaders();
-		JAppletFrame frame = new JAppletFrame( "SawFaders", applet );
-		frame.setSize( 440, 200 );
-		frame.setVisible( true );
-		frame.test();
-	}
 
 	public void init()
 	{
