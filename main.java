@@ -1,8 +1,5 @@
 import java.io.IOException;
-
 import com.leapmotion.leap.*;
-import com.leapmotion.leap.Vector;
-
 import java.util.*;
 
 class SampleListener extends Listener {
@@ -46,8 +43,8 @@ class SampleListener extends Listener {
                              + ", palm position: " + hand.palmPosition() + "frame width: " + frame.interactionBox().width());
             Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
 
-//            Float xPos = (Float)(normalizedHandPosition).firstElement();
-            float note = normalizedHandPosition.getX();
+            Float xPos = (Float)normalizedHandPosition.firstElement();
+            int note = checkNote(xPos);
 
             System.out.println("Note: " + note);
         }
