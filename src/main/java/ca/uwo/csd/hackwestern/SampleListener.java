@@ -1,4 +1,8 @@
-//package src.main.java.ca.uwo.csd.hackwestern;
+package src.main.java.ca.uwo.csd.hackwestern;
+
+import java.io.File;
+
+import jm.JMC;
 
 import com.leapmotion.leap.Controller;
 import com.leapmotion.leap.Frame;
@@ -9,10 +13,20 @@ import com.leapmotion.leap.InteractionBox;
 import com.leapmotion.leap.Listener;
 import com.leapmotion.leap.Tool;
 import com.leapmotion.leap.Vector;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Synthesizer;
+import javax.sound.midi.MidiChannel;
 
-public class SampleListener extends Listener {
+
+
+public class SampleListener extends Listener implements JMC {
+	
+	private int[] cScale= {60, 62, 64, 65, 67, 69, 71, 72};
+	
 	public void onInit(Controller controller) {
         System.out.println("Initialized");
+        checkNote((float) 0.5,8.0);
+
     }
 
     public void onConnect(Controller controller) {
@@ -44,6 +58,8 @@ public class SampleListener extends Listener {
                          + ", tools: " + frame.tools().count()
                          + ", gestures " + frame.gestures().count());*/
 
+        
+        
     	//Get hands
         for(Hand hand : frame.hands()) {
         	String handType = hand.isLeft() ? "Left hand" : "Right hand";
@@ -116,14 +132,39 @@ public class SampleListener extends Listener {
     		return 7;
     	}*/
     	
-    	for (double i = 0.0; i < numNotes; i ++)
+    	
+    	for (double i = 0.0; i < numNotes; i +=1.0)
     	{
-    		if ( i < x && x < div)
+    		//System.out.print("DEBUG INFO | ");
+			//System.out.print("i: "+ i+ " | ");
+			//System.out.print("x:" + x+ " | ");
+			//System.out.println("i*div: "+ i*div);
+    		
+    		try {
+    			
+    			Synthesizer synth = MidiSystem.getSynthesizer();
+    			synth.open();
+    			MidiChannel[] channels = synth.getChannels();
+    			int volume = 80;
+    			int duration = 100;
+    			
+    			if ( i*div < x && x < (i+1)*div)
+    			{
+    				System.out.println("Workking");
+    				channels[0].noteOn(cScale[(int)i], volume);
+    				Thread.sleep(duration);
+    				channels[0].noteOff(cScale[(int)i]);
+    				synth.close();
+    				return (int)i;	// Call function here
+    				
+    			}
+    		}
+    		catch (Exception e)
     		{
-    			return (int)i;
+    			e.printStackTrace();
     		}
     	}
-    	return 0;	// Return 0 default to silence warning
+    	return 0;	// Return 0 default to silence warning*/
     	
     }
 }

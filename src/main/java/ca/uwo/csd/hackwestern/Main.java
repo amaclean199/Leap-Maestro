@@ -1,5 +1,4 @@
-//package src.main.java.ca.uwo.csd.hackwestern;
-//package src.main.java.ca.uwo.csd.hackwestern;
+package src.main.java.ca.uwo.csd.hackwestern;
 
 import java.io.IOException;
 
