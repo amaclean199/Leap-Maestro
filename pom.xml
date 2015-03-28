@@ -13,8 +13,8 @@
   	 <version>1.6.4</version>
   </dependency>
   <dependency>
-     <groupId>com.leapmotion</groupId>
-     <artifactId>leapmotion</artifactId>
+     <groupId>com.leapmotion.leap</groupId>
+     <artifactId>leapMotion</artifactId>
      <version>2.2.4</version>
   </dependency>
  </dependencies>
@@ -46,8 +46,8 @@
         </goals>
         <configuration>
          <file>src/main/resources/jar/LeapJava.jar</file>
-         <groupId>org.leap.motion</groupId>
-         <artifactId>leapmotion</artifactId>
+         <groupId>com.leapmotion.leap</groupId>
+         <artifactId>leapMotion</artifactId>
          <version>2.2.4</version>
          <packaging>jar</packaging>
         </configuration>
