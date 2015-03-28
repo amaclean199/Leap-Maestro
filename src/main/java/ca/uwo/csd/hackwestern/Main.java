@@ -8,7 +8,6 @@ import com.leapmotion.leap.*;
 public class Main {
 	
 	public static void main(String[] args){
-
 		SawFaders applet = new SawFaders();
 		JAppletFrame frame = new JAppletFrame( "SawFaders", applet );
 		frame.setSize( 440, 200 );

@@ -31,7 +31,7 @@ public class ProcessFrame{
             float normalizedX = normalizedHandPosition.getX();
             double normalizedY = normalizedHandPosition.getY();
             double finalX = checkNote(normalizedX, 8.0);
-            sawFader.setFrequency(dMinScale[(int)finalX]);
+            modifyPitch(finalX);
             sawFader.setAmplitude(normalizedY);
             System.out.println("Note: " + normalizedX);
             System.out.println("finalX: " + finalX);
@@ -60,5 +60,13 @@ public class ProcessFrame{
     	}
     	return note;	// Return 0 default to silence warning*/
     }
-    
+
+	/**
+	 * playNote will take a note and play it based on the pitch provided
+	 * @pitch is the pitch of the scale
+	 * */
+	public void modifyPitch(double pitch){
+		sawFader.setFrequency(cScale[(int)pitch]);
+    	sawFader.updatePosition();	
+	}
 }
