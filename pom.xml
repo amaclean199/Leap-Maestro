@@ -49,7 +49,7 @@
     <configuration>
      <archive>
       <manifest>
-       <mainClass>ca.uwo.csd.hackwestern.Main</mainClass>
+       <mainClass>ca.uwo.csd.hackwestern.main</mainClass>
       </manifest>
      </archive>
     </configuration>
