@@ -23,15 +23,20 @@
 
  <dependencies>
   <dependency>
-  	 <groupId>com.explodingart</groupId>
-  	 <artifactId>jmusic</artifactId>
-  	 <version>1.6.4</version>
+   <groupId>com.explodingart</groupId>
+   <artifactId>jmusic</artifactId>
+   <version>1.6.4</version>
   </dependency>
   <dependency>
    <groupId>com.leapmotion.leap</groupId>
    <artifactId>leapMotion</artifactId>
    <version>2.2.4</version>
   </dependency>
+  <dependency>
+   <groupId>com.softsynth</groupId>
+   <artifactId>jsyn</artifactId>
+  <version>16.7.3</version>
+   </dependency>
  </dependencies>
 
  <build>
