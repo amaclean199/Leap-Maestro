@@ -17,8 +17,8 @@ public class Main {
         while (true)	// Polls the controller for a frame
         {
         	Frame currentFrame = controller.frame();
-        	
-        	processor.process(currentFrame);
+        	Frame previousFrame = controller.frame(1);
+        	processor.process(currentFrame,previousFrame);
 //        	System.out.println("timer");
         	
         	

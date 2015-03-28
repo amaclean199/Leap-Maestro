@@ -2,13 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/alexmaclean/Development/HackWestern/src/main/resources/jar/JavaSoundDemo.jar"/>
-	<classpathentry kind="lib" path="/Users/alexmaclean/Development/HackWestern/src/main/resources/jar/LeapJava.jar">
+	<classpathentry kind="lib" path="/Users/jia_wu/Downloads/LeapDeveloperKit_2.2.4+26750_mac/LeapSDK/lib/LeapJava.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/alexmaclean/Downloads/LeapDeveloperKit_2.2.4+26750_mac/LeapSDK/lib"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/jia_wu/Downloads/LeapDeveloperKit_2.2.4+26750_mac/LeapSDK/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/alexmaclean/Development/HackWestern/JAR/jMusic1.6.4.jar"/>
-	<classpathentry kind="lib" path="/Users/alexmaclean/Downloads/LeapDeveloperKit_2.2.4+26750_mac/LeapSDK"/>
+	<classpathentry kind="lib" path="/Users/jia_wu/Documents/workspace/HackWesternProject/HackWestern/JAR/jMusic1.6.4.jar"/>
+	<classpathentry kind="lib" path="/Users/jia_wu/Documents/workspace/HackWesternProject/HackWestern/src/main/resources/jar/JavaSoundDemo.jar"/>
+	<classpathentry kind="lib" path="/Users/jia_wu/Documents/workspace/HackWesternProject/HackWestern/src/main/resources/jar/LeapJava.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

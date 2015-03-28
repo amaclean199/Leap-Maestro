@@ -10,7 +10,7 @@ public class ProcessFrame {
 	
 	// Attributes
 	private int[] cScale= {60, 62, 64, 65, 67, 69, 71, 72};
-
+	double previous = 0;
 	
 	// Default Constructor
 	public ProcessFrame()
@@ -22,26 +22,48 @@ public class ProcessFrame {
 	/**
 	 * process will take a frame as a parameter and check it for events
 	 * */
-	public void process(Frame f)
+	public void process(Frame f, Frame previousF)
 	{
-		System.out.println("processing");
+		
+		if (f == null | previousF == null)
+		{
+			return;
+		}
+		else
+		{
 
-		GestureList gestures = f.gestures();
-        InteractionBox i_box = f.interactionBox();
+			System.out.println("processing");
 
-    	//Get hands
-        for(Hand hand : f.hands()) {
-        	
-        	Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
-            float normalizedX = normalizedHandPosition.getX();
-            double finalX = checkNote(normalizedX, 8.0);
-            System.out.println("Note: " + normalizedX + "finalX: " + finalX);
-            playNote((int)finalX);
-        }
+			GestureList gestures = f.gestures();
+	        InteractionBox i_box = f.interactionBox();
 
-    	if (!f.hands().isEmpty() || !gestures.isEmpty()) {
-            System.out.println();
-        }
+	    	//Get hands
+	        for(Hand hand : f.hands()) {
+	        	
+	        	Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
+	            float normalizedX = normalizedHandPosition.getX();
+	            double finalX = checkNote(normalizedX, 8.0);
+	            System.out.println("Note: " + normalizedX + "finalX: " + finalX);
+	            	            
+	            if (finalX == previous)
+	            {
+	            	return;
+	            }
+	            else
+	            {
+	            	playNote((int)finalX);
+	            	previous = finalX;
+	            }
+
+	        }
+
+	    	if (!f.hands().isEmpty() || !gestures.isEmpty()) {
+	            System.out.println();
+	        }
+			
+		}
+		
+
 	}
 	
 	
