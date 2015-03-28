@@ -1,4 +1,4 @@
-//package src.main.java.ca.uwo.csd.hackwestern;
+package src.main.java.ca.uwo.csd.hackwestern;
 
 import java.awt.GridLayout;
 
@@ -60,6 +60,7 @@ public class SawFaders extends JApplet
 		add( knobPanel );
 
 		osc.frequency.setup( 50.0, 300.0, 10000.0 );
+		osc.amplitude.setup(0, 0.5, 1);
 		add( PortControllerFactory.createExponentialPortSlider( osc.frequency ) );
 		validate();
 	}
@@ -80,5 +81,9 @@ public class SawFaders extends JApplet
 	
 	public void setFrequency(double freq) {
 		osc.frequency.set(freq);
+	}
+	
+	public void setAmplitude(double amp) {
+		osc.amplitude.set(amp);
 	}
 }
