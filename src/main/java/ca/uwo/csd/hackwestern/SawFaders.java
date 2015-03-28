@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import com.jsyn.JSyn;
 import com.jsyn.Synthesizer;
 import com.jsyn.swing.ExponentialRangeModel;
-import com.jsyn.swing.JAppletFrame;
 import com.jsyn.swing.PortControllerFactory;
 import com.jsyn.swing.PortModelFactory;
 import com.jsyn.swing.RotaryTextController;
@@ -32,8 +31,9 @@ public class SawFaders extends JApplet
 	private LinearRamp lag;
 	private LineOut lineOut;
 	private double customFrq;
-	private PortControllerFactory pCF;
+	//private PortControllerFactory pCF;
 	private Component x;
+	private ExponentialRangeModel amplitudeModel;
 	
 	public void init()
 	{
@@ -56,7 +56,7 @@ public class SawFaders extends JApplet
 		// Arrange the faders in a stack.
 		setLayout( new GridLayout( 0, 1 ) );
 
-		ExponentialRangeModel amplitudeModel = PortModelFactory.createExponentialModel( lag.input );
+		amplitudeModel = PortModelFactory.createExponentialModel( lag.input );
 		RotaryTextController knob = new RotaryTextController( amplitudeModel, 5 );
 		JPanel knobPanel = new JPanel();
 		knobPanel.add( knob );
@@ -64,7 +64,7 @@ public class SawFaders extends JApplet
 
 		osc.frequency.setup( 50.0, 300.0, 10000.0 );
 		osc.amplitude.setup(0, 0.5, 1);
-		x = pCF.createExponentialPortSlider( osc.frequency );
+		x = PortControllerFactory.createExponentialPortSlider( osc.frequency );
 		add( x );
 		validate();
 	}
@@ -78,7 +78,7 @@ public class SawFaders extends JApplet
 	{
 		remove (x);
 		osc.frequency.setup(50.0, getFrq(), 1000.0);
-		x = pCF.createExponentialPortSlider( osc.frequency );
+		x = PortControllerFactory.createExponentialPortSlider( osc.frequency );
 		add( x );
 		validate();
 	}
@@ -87,8 +87,8 @@ public class SawFaders extends JApplet
 	{
 		// Start synthesizer using default stereo output at 44100 Hz.
 		synth.start();
-		// We only need to start the LineOut. It will pull data from the
-		// oscillator.
+		
+		// We only need to start the LineOut. It will pull data from the oscillator.
 		lineOut.start();
 	}
 
@@ -103,6 +103,6 @@ public class SawFaders extends JApplet
 	}
 	
 	public void setAmplitude(double amp) {
-		osc.amplitude.set(amp);
+		amplitudeModel.setDoubleValue(amp);
 	}
 }
