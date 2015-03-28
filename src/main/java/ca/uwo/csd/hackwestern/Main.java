@@ -4,6 +4,7 @@ import java.io.IOException;
 import com.leapmotion.leap.*;
 import com.leapmotion.leap.Vector;
 import ca.uwo.csd.hackwestern.SampleListener;
+import ca.uwo.csd.hackwestern.ProcessFrame;
 import java.util.*;
 
 public class Main {
