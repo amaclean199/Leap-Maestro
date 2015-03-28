@@ -33,6 +33,26 @@
      </archive>
     </configuration>
    </plugin>
+   <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-install-plugin</artifactId>
+    <version>2.4</version>
+    <executions>
+      <execution>
+        <id>install-leap</id>
+        <phase>package</phase>
+        <goals>
+          <goal>install-file</goal>
+        </goals>
+        <configuration>
+         <file>src/main/resources/jar/LeapJava.jar</file>
+         <groupId>org.leap.motion</groupId>
+         <artifactId>leapmotion</artifactId>
+         <version>2.2.4</version>
+        </configuration>
+      </execution>
+    </executions>
+   </plugin>
   </plugins>
  </build>
 
