@@ -3,12 +3,18 @@ package src.main.java.ca.uwo.csd.hackwestern;
 import javax.swing.JApplet;
 
 import com.leapmotion.leap.*;
+import javax.sound.midi.MidiChannel;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.Synthesizer;
+import com.leapmotion.leap.*;
 
 public class ProcessFrame extends JApplet{
 	
 	// Attributes
 	private double[] cScale= {261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25};
 	private SawFaders sawFader;
+	
+	double previous = 0;
 	
 	// Default Constructor
 	public ProcessFrame(SawFaders sFade)
@@ -19,10 +25,39 @@ public class ProcessFrame extends JApplet{
 	/**
 	 * process will take a frame as a parameter and check it for events
 	 * */
-	public void process(Frame f)
+	public void process(Frame f, Frame previousF)
 	{
-		System.out.println("processing");
+		
+		if (f == null | previousF == null)
+		{
+			return;
+		}
+		else
+		{
 
+			System.out.println("processing");
+
+			GestureList gestures = f.gestures();
+	        InteractionBox i_box = f.interactionBox();
+
+	    	//Get hands
+	        for(Hand hand : f.hands()) {
+	        	
+	        	Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
+	            float normalizedX = normalizedHandPosition.getX();
+	            double finalX = checkNote(normalizedX, 8.0);
+	            System.out.println("Note: " + normalizedX + "finalX: " + finalX);
+	            	            
+	            if (finalX == previous)
+	            {
+	            	return;
+	            }
+	            else
+	            {
+	            	playNote((int)finalX);
+	            	previous = finalX;
+	            }
+	            
 		//GestureList gestures = f.gestures();
         InteractionBox i_box = f.interactionBox();
 
@@ -41,6 +76,14 @@ public class ProcessFrame extends JApplet{
     	/*if (!f.hands().isEmpty() || !gestures.isEmpty()) {
             System.out.println();
         }*/
+	        }
+
+	    	if (!f.hands().isEmpty() || !gestures.isEmpty()) {
+	            System.out.println();
+	        }
+			
+		}
+		
 	}
 	
     /**

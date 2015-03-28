@@ -5,43 +5,42 @@
  <artifactId>leap.hackwestern</artifactId>
  <packaging>jar</packaging>
  <version>1.0-SNAPSHOT</version>
+ 
+ <repositories>
+  <repository>
+   <id>repo</id>
+   <releases>
+    <enabled>true</enabled>
+    <updatePolicy>always</updatePolicy>
+    <checksumPolicy>ignore</checksumPolicy>
+   </releases>
+   <snapshots>
+    <enabled>false</enabled>
+   </snapshots>
+   <url>file://${project.basedir}/repo</url>
+  </repository>
+ </repositories>
 
  <dependencies>
   <dependency>
-  	 <groupId>com.explodingart</groupId>
-  	 <artifactId>jmusic</artifactId>
-  	 <version>1.6.4</version>
+   <groupId>com.explodingart</groupId>
+   <artifactId>jmusic</artifactId>
+   <version>1.6.4</version>
   </dependency>
   <dependency>
-     <groupId>com.leapmotion.leap</groupId>
-     <artifactId>leapMotion</artifactId>
-     <version>2.2.4</version>
+   <groupId>com.leapmotion.leap</groupId>
+   <artifactId>leapMotion</artifactId>
+   <version>2.2.4</version>
   </dependency>
+  <dependency>
+   <groupId>com.softsynth</groupId>
+   <artifactId>jsyn</artifactId>
+  <version>16.7.3</version>
+   </dependency>
  </dependencies>
 
  <build>
   <plugins>
-   <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-install-plugin</artifactId>
-    <version>2.4</version>
-    <executions>
-      <execution>
-        <id>install-leap</id>
-        <phase>package</phase>
-        <goals>
-          <goal>install-file</goal>
-        </goals>
-        <configuration>
-         <file>src/main/resources/jar/LeapJava.jar</file>
-         <groupId>com.leapmotion.leap</groupId>
-         <artifactId>leapMotion</artifactId>
-         <version>2.2.4</version>
-         <packaging>jar</packaging>
-        </configuration>
-      </execution>
-    </executions>
-   </plugin>
    <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-jar-plugin</artifactId>
@@ -49,39 +48,35 @@
     <configuration>
      <archive>
       <manifest>
-       <mainClass>ca.uwo.csd.hackwestern.main</mainClass>
+       <mainClass>src.main.java.ca.uwo.csd.hackwestern.Main</mainClass>
       </manifest>
      </archive>
     </configuration>
    </plugin>
-   
    <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-assembly-plugin</artifactId>
-       <version>2.5.3</version>
-       <configuration>
-           <descriptorRefs>
-               <descriptorRef>jar-with-dependencies</descriptorRef>
-           </descriptorRefs>
-           <archive>
-               <manifest>
-                   <mainClass>Main</mainClass>
-               </manifest>
-           </archive>
-       </configuration>
-       
-       <executions>
-           <execution>
-               <phase>package</phase>
-               <goals>
-                   <goal>single</goal>
-               </goals>
-           </execution>
-       </executions>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <version>2.5.3</version>
+    <configuration>
+     <descriptorRefs>
+      <descriptorRef>jar-with-dependencies</descriptorRef>
+     </descriptorRefs>
+     <archive>
+      <manifest>
+       <mainClass>src.main.java.ca.uwo.csd.hackwestern.Main</mainClass>
+      </manifest>
+     </archive>
+    </configuration>
+    <executions>
+     <execution>
+      <phase>package</phase>
+      <goals>
+       <goal>single</goal>
+      </goals>
+     </execution>
+    </executions>
    </plugin>
-   
-   
   </plugins>
  </build>
-
+ 
 </project>

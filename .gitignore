@@ -1,3 +1,4 @@
 *.class
 target/
 bin/
+install-to-project-repo.py

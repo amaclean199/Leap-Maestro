@@ -1,10 +1,10 @@
 package src.main.java.ca.uwo.csd.hackwestern;
 
 import java.io.IOException;
-
 import com.leapmotion.leap.*;
 import com.leapmotion.leap.Vector;
-
+import src.main.java.ca.uwo.csd.hackwestern.SampleListener;
+import src.main.java.ca.uwo.csd.hackwestern.ProcessFrame;
 import java.util.*;
 
 public class Main {
@@ -17,8 +17,10 @@ public class Main {
         while (true)	// Polls the controller for a frame
         {
         	Frame currentFrame = controller.frame();
+        	Frame previousFrame = controller.frame(1);
+        	processor.process(currentFrame,previousFrame);
+//        	System.out.println("timer");
         	
-        	processor.process(currentFrame);        	
         	
         	try	// Constant framerate (10 frames per second)
         	{
