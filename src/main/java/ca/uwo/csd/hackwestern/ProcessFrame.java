@@ -6,6 +6,7 @@ public class ProcessFrame{
 	
 	private static final double[] C_MAJ = {261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50};
 	private static final double[] D_MIN = {293.66, 329.63, 349.23, 392.00, 440.00, 466.16, 523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 932.33, 1046.50, 1174.66};
+	private static final double[] G_BLUES = {196.00, 233.08, 261.63, 277.18, 293.66, 349.23, 392.00, 466.16, 523.25, 554.37, 587.33, 698.46, 783.99};
 	
 	// Attributes
 	private double[] scale = new double[8];
@@ -23,6 +24,10 @@ public class ProcessFrame{
 		else if (c == 'D') {
 			System.arraycopy(D_MIN, 0, scale, 0, 8);
 			fullScale = D_MIN;
+		}
+		else if (c == 'G') {
+			System.arraycopy(G_BLUES, 0, scale, 0, 8);
+			fullScale = G_BLUES;
 		}
 	}
 	
@@ -43,7 +48,7 @@ public class ProcessFrame{
 		            double normalizedX = normalizedHandPosition.getX();
 		            double normalizedY = normalizedHandPosition.getY();
 		            double normalizedZ = normalizedHandPosition.getZ();
-		            double finalX = checkNote(normalizedX, 15.0);
+		            double finalX = checkNote(normalizedX, fullScale.length);
 		            sawFader.getSine().frequency.set(5-normalizedZ*5);
 		            modifyPitch(finalX);
 		            sawFader.setAmplitude(normalizedY);
@@ -52,11 +57,11 @@ public class ProcessFrame{
 		            //System.out.println("Amplitude: " + normalizedY);
 				}
 	        }
-	        for(Gesture gesture : f.gestures()) {
+	        /*for(Gesture gesture : f.gestures()) {
 	        	if(gesture.type() == Gesture.Type.TYPE_SWIPE) {
 	        	    SwipeGesture swipeGesture = new SwipeGesture(gesture);
 	        	    Vector swipeDirection = swipeGesture.direction();
-	        	    System.out.println(swipeDirection);
+	        	    //System.out.println(swipeDirection);
 	        	    if (swipeDirection.getX() < 0) {
 	        	    	scaleUp();
 	        	    }
@@ -65,7 +70,7 @@ public class ProcessFrame{
 	        	    }
 	        	}
 	        	
-	        }
+	        }*/
 	    }
 	}
 	
@@ -100,17 +105,17 @@ public class ProcessFrame{
     	sawFader.updatePosition();	 
 	}
 	
-	private void scaleUp() {
+	/*private void scaleUp() {
 		if (scale[0] == fullScale[0]) {
 		System.arraycopy(fullScale, 7, scale, 0, 8);
-		System.out.println("up");
+		//System.out.println("up");
 		}
 	}
 	
 	private void scaleDown() {
 		if (scale[0] == fullScale[7]) {
 			System.arraycopy(fullScale, 0, scale, 0, 8);
-			System.out.println("Down");
+			//System.out.println("Down");
 		}
-	}
+	}*/
 }

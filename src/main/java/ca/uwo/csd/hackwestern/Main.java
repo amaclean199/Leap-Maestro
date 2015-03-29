@@ -19,7 +19,7 @@ public class Main {
         Controller controller = new Controller();
         controller.enableGesture(Gesture.Type.TYPE_SWIPE);
         
-        ProcessFrame processor = new ProcessFrame(applet, 'C'); 
+        ProcessFrame processor = new ProcessFrame(applet, 'G');
         
         while (true)	// Polls the controller for a frame
         {

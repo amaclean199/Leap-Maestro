@@ -2,11 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/edmund/git/HackWestern/lib/com.leapmotion.leap.leapMotion_2.2.4.jar">
+	<classpathentry kind="lib" path="/Users/alexmaclean/Development/HackWestern/lib/com.leapmotion.leap.leapMotion_2.2.4.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="HackWestern/lib"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/alexmaclean/Downloads/LeapDeveloperKit_2.2.4+26750_mac/LeapSDK/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/edmund/git/HackWestern/lib/com.softsynth.jsyn_16.7.3.jar"/>
+	<classpathentry kind="lib" path="/Users/alexmaclean/Development/HackWestern/lib/com.softsynth.jsyn_16.7.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
