@@ -9,8 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import src.main.java.ca.uwo.csd.hackwestern.Layout;
-
 import com.jsyn.*;
 import com.jsyn.swing.ExponentialRangeModel;
 import com.jsyn.swing.PortControllerFactory;
@@ -45,14 +43,14 @@ public class SawFaders extends JApplet {
 
 	public void init()
 	{
-		synth = JSyn.createSynthesizer();
-
+		synth = JSyn.createSynthesizer(); 
+		
 		// Add a tone generator.
 		synth.add( osc = new SawtoothOscillatorBL() );
 		synth.add( sine = new SineOscillator() );
-		synth.add( red = new SawtoothOscillator() );
+		//synth.add( red = new SawtoothOscillator() );
 		sine.frequency.set(0.5);
-		red.amplitude.set(-0.3);
+		//red.amplitude.set(-0.3);
 		
 		// Add a lag to smooth out amplitude changes and avoid pops.
 		synth.add(lag = new AsymptoticRamp());
@@ -65,13 +63,13 @@ public class SawFaders extends JApplet {
 		osc.output.connect(0, lineOut.input, 1);
 		sine.output.connect(0, lineOut.input, 0);
 		sine.output.connect(0, lineOut.input, 1);
-		red.output.connect( 0, lineOut.input, 0);
-		red.output.connect( 0, lineOut.input, 1);
+		//red.output.connect( 0, lineOut.input, 0);
+		//red.output.connect( 0, lineOut.input, 1);
 		
 		// Set the minimum, current and maximum values for the port.
 		lag.output.connect( osc.amplitude );
-		//lag.output.connect( sine.amplitude );
-		lag.output.connect( red.amplitude );
+		lag.output.connect( sine.amplitude );
+		//lag.output.connect( red.amplitude );
 		lag.input.setup( 0.0, 0.5, 1.0 );
 
 		// Arrange the faders in a stack.
