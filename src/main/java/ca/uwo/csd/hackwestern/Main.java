@@ -17,9 +17,9 @@ public class Main {
 		frame.test();
 		
         Controller controller = new Controller();
-        controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
+        controller.enableGesture(Gesture.Type.TYPE_SWIPE);
         
-        ProcessFrame processor = new ProcessFrame(applet); 
+        ProcessFrame processor = new ProcessFrame(applet, 'C'); 
         
         while (true)	// Polls the controller for a frame
         {
