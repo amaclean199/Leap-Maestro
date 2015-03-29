@@ -9,9 +9,11 @@ public class Main {
 	
 	public static void main(String[] args){
 		SawFaders applet = new SawFaders();
-		JAppletFrame frame = new JAppletFrame( "SawFaders", applet );
-		frame.setSize( 440, 200 );
+		JAppletFrame frame = new JAppletFrame("Leap Maestro", applet);
+		frame.setSize( 640, 480 );
 		frame.setVisible( true );
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
 		frame.test();
 		
         Controller controller = new Controller();
@@ -32,7 +34,6 @@ public class Main {
         	{
         		e.printStackTrace();
         	}       	
-        	
         	if (!controller.isConnected())	// Disconnect since the controller is disconnected
         	{
         		break;
