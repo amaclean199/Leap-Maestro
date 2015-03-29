@@ -20,9 +20,14 @@ public class ProcessFrame{
 	 * */
 	public void process(Frame f)
 	{
-		System.out.println("processing");
+		//System.out.println("processing");
 		//GestureList gestures = f.gestures();
-	    InteractionBox i_box = f.interactionBox();    	
+	    InteractionBox i_box = f.interactionBox();
+	    
+	    if (f.hands().isEmpty()){
+	    	sawFader.setAmplitude(-0.4);
+	    }
+	    else{
 	       
     	//Get hands
         for(Hand hand : f.hands()) {
@@ -34,10 +39,11 @@ public class ProcessFrame{
             double finalX = checkNote(normalizedX, 8.0);
             modifyPitch(finalX);
             sawFader.setAmplitude(normalizedY);
-            System.out.println("Note: " + normalizedX);
-            System.out.println("finalX: " + finalX);
-            System.out.println("Amplitude: " + normalizedY);
+            //System.out.println("Note: " + normalizedX);
+            //System.out.println("finalX: " + finalX);
+            //System.out.println("Amplitude: " + normalizedY);
 		}
+	}
 	}
 	
     /**
@@ -51,7 +57,7 @@ public class ProcessFrame{
     	double note = -1;
     	double div = 1.0/numNotes;	// Represents the space allocated to each "note"
     	
-    	System.out.println("div: " + div);
+    	//System.out.println("div: " + div);
     	
     	for (double i = 0.0; i < numNotes; i +=1.0) {
     		if (i*div <= x && x <= (i+1)*div) {

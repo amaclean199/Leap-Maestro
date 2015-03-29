@@ -14,6 +14,7 @@ import com.jsyn.unitgen.AsymptoticRamp;
 import com.jsyn.unitgen.LineOut;
 import com.jsyn.unitgen.SawtoothOscillatorBL;
 import com.jsyn.unitgen.UnitOscillator;
+import com.jsyn.unitgen.SineOscillator;
 
 /**
  * Play a tone using a JSyn oscillator and some knobs.
@@ -31,20 +32,27 @@ public class SawFaders extends JApplet
 	private double customFrq;
 	private Component x;
 	private ExponentialRangeModel amplitudeModel;
-
+	private SineOscillator sine;
 	public void init()
 	{
 		synth = JSyn.createSynthesizer();
 		// Add a tone generator.
 		synth.add( osc = new SawtoothOscillatorBL() );
+		synth.add( sine = new SineOscillator() );
+		sine.frequency.set(5);
 		// Add a lag to smooth out amplitude changes and avoid pops.
 		synth.add( lag = new AsymptoticRamp() );
 		double hlife = 0.01 + (Math.random() * 0.9);
 		lag.halfLife.set( hlife );
 		// Add an output mixer.
 		synth.add( lineOut = new LineOut() );
+		
 		// Connect the oscillator to the output.
 		osc.output.connect( 0, lineOut.input, 0 );
+		osc.output.connect( 0, lineOut.input, 1 );
+		sine.output.connect( 0, lineOut.input, 0);
+		sine.output.connect( 0, lineOut.input, 1);
+		
 		// Set the minimum, current and maximum values for the port.
 		lag.output.connect( osc.amplitude );
 		lag.input.setup( 0.0, 0.5, 1.0 );
@@ -69,6 +77,10 @@ public class SawFaders extends JApplet
 	public double getFrq()
 	{
 		return customFrq;
+	}
+	
+	public UnitOscillator getOsc() {
+		return osc;
 	}
 	
 	public void updatePosition()
