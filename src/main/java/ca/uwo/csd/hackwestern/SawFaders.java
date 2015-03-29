@@ -36,14 +36,15 @@ public class SawFaders extends JApplet
 	public void init()
 	{
 		synth = JSyn.createSynthesizer();
+		
 		// Add a tone generator.
 		synth.add( osc = new SawtoothOscillatorBL() );
 		synth.add( sine = new SineOscillator() );
 		sine.frequency.set(5);
+		
 		// Add a lag to smooth out amplitude changes and avoid pops.
 		synth.add( lag = new AsymptoticRamp() );
-		double hlife = 0.01 + (Math.random() * 0.9);
-		lag.halfLife.set( hlife );
+		
 		// Add an output mixer.
 		synth.add( lineOut = new LineOut() );
 		
@@ -65,12 +66,10 @@ public class SawFaders extends JApplet
 		JPanel knobPanel = new JPanel();
 		knobPanel.add( knob );
 		add( knobPanel );
-
 		osc.frequency.setup( 261, 300.0, 2000.0 );
-
+		osc.amplitude.setup(0, 0.5, 1);
 		x = PortControllerFactory.createExponentialPortSlider( osc.frequency );
 		add( x );
-		osc.amplitude.setup(0, 0.5, 1);
 		validate();
 	}
 	
@@ -86,10 +85,8 @@ public class SawFaders extends JApplet
 	public void updatePosition()
 	{
 		remove (x);
-		osc.frequency.setup(261, getFrq(), 2000.0);
 		x = PortControllerFactory.createExponentialPortSlider( osc.frequency );
 		add( x );
-		osc.output.connect( 0, lineOut.input, 0 );
 		validate();
 	}
 	
@@ -97,8 +94,7 @@ public class SawFaders extends JApplet
 	{
 		// Start synthesizer using default stereo output at 44100 Hz.
 		synth.start();
-		// We only need to start the LineOut. It will pull data from the
-		// oscillator.
+		// We only need to start the LineOut. It will pull data from the oscillator.
 		lineOut.start();
 	}
 

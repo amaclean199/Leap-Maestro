@@ -15,16 +15,18 @@ public class Main {
 		frame.test();
 		
         Controller controller = new Controller();
-        ProcessFrame processor = new ProcessFrame(applet);        
+        controller.enableGesture(Gesture.Type.TYPE_CIRCLE);
+        
+        ProcessFrame processor = new ProcessFrame(applet); 
         
         while (true)	// Polls the controller for a frame
         {
         	Frame currentFrame = controller.frame();
-        	processor.process(currentFrame);     	
+        	processor.process(currentFrame);
         	
-        	try	// Constant framerate (10 frames per second)
+        	try	// Constant framerate (60 frames per second)
         	{
-        		Thread.sleep(50);
+        		Thread.sleep(20);
         	}
         	catch (java.lang.InterruptedException e)
         	{

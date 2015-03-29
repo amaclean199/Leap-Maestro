@@ -35,7 +35,6 @@ public class ProcessFrame{
         	Vector normalizedHandPosition = i_box.normalizePoint(hand.palmPosition());
             float normalizedX = normalizedHandPosition.getX();
             double normalizedY = normalizedHandPosition.getY();
-            //double y = hand.palmPosition().getY();
             double finalX = checkNote(normalizedX, 8.0);
             modifyPitch(finalX);
             sawFader.setAmplitude(normalizedY);
