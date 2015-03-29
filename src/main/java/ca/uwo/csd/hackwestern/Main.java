@@ -29,7 +29,7 @@ public class Main {
         	Frame currentFrame = controller.frame();
         	
         	currentScale = processor.process(currentFrame);
-        	//System.out.println("Scale: "+ currentScale);
+        	System.out.println("Scale: "+ currentScale);
         	/*
         	if (temp == currentScale)
         	{
