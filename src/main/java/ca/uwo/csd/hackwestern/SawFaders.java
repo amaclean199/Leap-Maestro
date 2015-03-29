@@ -28,7 +28,8 @@ import com.jsyn.scope.AudioScope;
  * @author Phil Burk (C) 2010 Mobileer Inc
  * 
  */
-public class SawFaders extends JApplet {
+public class SawFaders extends JApplet
+{
 	private static final long serialVersionUID = -2704222221111608377L;
 	private Synthesizer synth;
 	private UnitOscillator osc;
@@ -38,7 +39,6 @@ public class SawFaders extends JApplet {
 	private Component x;
 	private ExponentialRangeModel amplitudeModel;
 	private SineOscillator sine;
-	private SawtoothOscillator red;
 	private AudioScope scope;
 
 	public void init()
@@ -115,17 +115,14 @@ public class SawFaders extends JApplet {
 		c.fill = GridBagConstraints.HORIZONTAL;*/
 		add(Layout.makeTitle("Leap Maestro"));
 	}
-
-	public double getFrq() {
+	
+	public double getFrq()
+	{
 		return customFrq;
 	}
-
+	
 	public UnitOscillator getOsc() {
 		return osc;
-	}
-	
-	public SineOscillator getSine() {
-		return sine;
 	}
 	
 	public void updatePosition()
@@ -135,26 +132,31 @@ public class SawFaders extends JApplet {
 		add( x );
 		validate();
 	}
-
-	public void start() {
+	
+	public void start()
+	{
 		// Start synthesizer using default stereo output at 44100 Hz.
 		synth.start();
-		// We only need to start the LineOut. It will pull data from the
-		// oscillator.
+		// We only need to start the LineOut. It will pull data from the oscillator.
 		lineOut.start();
 		scope.start();
 	}
-
-	public void stop() {
+	
+	public SineOscillator getSine() {
+		return sine;
+	}
+	
+	public void stop()
+	{
 		synth.stop();
 		scope.stop();
 	}
-
+	
 	public void setFrequency(double freq) {
 		osc.frequency.set(freq);
 		customFrq = freq;
 	}
-
+	
 	public void setAmplitude(double amp) {
 		amplitudeModel.setDoubleValue(amp);
 	}

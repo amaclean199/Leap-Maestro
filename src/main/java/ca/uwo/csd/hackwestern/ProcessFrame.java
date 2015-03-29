@@ -12,10 +12,12 @@ public class ProcessFrame{
 	private double[] scale = new double[8];
 	private double[] fullScale = new double[15];
 	private SawFaders sawFader;
+	private char currentScale = 'G';
 	
 	// Default Constructor
 	public ProcessFrame(SawFaders sFade, char c)
 	{
+		currentScale = c;
 		sawFader = sFade;
 		if (c == 'C') {
 			System.arraycopy(C_MAJ, 0, scale, 0, 8);
@@ -34,7 +36,7 @@ public class ProcessFrame{
 	/**
 	 * process will take a frame as a parameter and check it for events
 	 * */
-	public void process(Frame f) {
+	public char process(Frame f) {
 	    InteractionBox i_box = f.interactionBox();
 	    
 	    if (f.hands().isEmpty()) {
@@ -56,22 +58,30 @@ public class ProcessFrame{
 		            //System.out.println("finalX: " + finalX);
 		            //System.out.println("Amplitude: " + normalizedY);
 				}
-	        }
-	        /*for(Gesture gesture : f.gestures()) {
-	        	if(gesture.type() == Gesture.Type.TYPE_SWIPE) {
-	        	    SwipeGesture swipeGesture = new SwipeGesture(gesture);
-	        	    Vector swipeDirection = swipeGesture.direction();
-	        	    //System.out.println(swipeDirection);
-	        	    if (swipeDirection.getX() < 0) {
-	        	    	scaleUp();
-	        	    }
-	        	    if (swipeDirection.getX() > 0) {
-	        	    	scaleDown();
-	        	    }
+	        	else	// Left hand
+	        	{
+	        		for (Gesture gesture : f.gestures())
+	        		{
+	        			SwipeGesture swipeGesture = new SwipeGesture(gesture);
+	        			Vector swipeDirection = swipeGesture.direction();
+	        			if (swipeDirection.getX() < 0){
+	        				currentScale = 'C';
+	        			}
+	        			else if (swipeDirection.getY() < 0)
+	        			{
+	        				currentScale = 'D';	        				
+	        			}
+	        			else
+	        			{
+	        				currentScale = 'G';
+	        			}
+	        		}
 	        	}
-	        	
-	        }*/
+	        }
+
 	    }
+        return currentScale;
+
 	}
 	
     /**
